@@ -1,0 +1,30 @@
+Reproduced https://github.com/tailwindlabs/tailwindcss/issues/8582[Tailwind CSS issue #8582] on *Windows 10 (21H2)* and *Node.js 18.1.0*:
+
+----
+PS D:\tailwindcss-8582> npx tailwindcss -i ./src/input.css -o ./dist/output.css
+D:\tailwindcss-8582\node_modules\tailwindcss\lib\util\toPath.js:13
+    return path.split(/\.(?![^\[]*\])|[\[\]]/g).filter(Boolean);
+                ^
+
+RangeError: Maximum call stack size exceeded
+    at String.split (<anonymous>)
+    at Object.toPath (D:\tailwindcss-8582\node_modules\tailwindcss\lib\util\toPath.js:13:17)
+    at toPaths (D:\tailwindcss-8582\node_modules\tailwindcss\lib\util\resolveConfig.js:156:29)
+    at toPaths.next (<anonymous>)
+    at resolvePath (D:\tailwindcss-8582\node_modulestailwindcss\lib\util\resolveConfig.js:176:20)
+    at colors (D:\tailwindcss-8582\tailwind.config.js:9:27)
+    at resolvePath (D:\tailwindcss-8582\node_modules\tailwindcss\lib\util\resolveConfig.js:182:43)
+    at colors (D:\tailwindcss-8582\tailwind.config.js:9:27)
+    at resolvePath (D:\tailwindcss-8582\node_modules\tailwindcss\lib\util\resolveConfig.js:182:43)
+    at colors (D:\tailwindcss-8582\tailwind.config.js:9:27)
+
+Node.js v18.1.0
+----
+
+Following the https://tailwindcss.com/docs/installation[official installation guide] using the Tailwind CLI.
+
+----
+npm install -D tailwindcss
+npx tailwindcss init
+npx tailwindcss -i .\src\input.css -o .\dist\output.css
+----
